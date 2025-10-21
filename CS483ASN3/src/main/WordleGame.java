@@ -39,6 +39,7 @@ public class WordleGame {
 	 * @throws IllegalStateException    if game is already over
 	 */
 	public Feedback makeGuess(String guess) {
+		guess = guess.toLowerCase(); //Bug fix for caps
 		if (gameOver)
 			throw new IllegalStateException("Game already ended.");
 
@@ -56,7 +57,8 @@ public class WordleGame {
 		Feedback feedback = generateFeedback(guess);
 
 		if (feedback.isCorrect()) {
-
+			System.out.println("Hooray! You got it!");
+			gameOver=true;//bug-fix: ended the game once guessed correctly
 		}
 
 		return feedback;
@@ -71,12 +73,26 @@ public class WordleGame {
 	private Feedback generateFeedback(String guess) {
 		char[] pattern = new char[5];
 		boolean[] usedSecret = new boolean[5];
-
+		boolean dupe = false;
 		// Step 1: green boxes
 		for (int i = 0; i < 5; i++) {
 			if (guess.charAt(i) == wordleWord.charAt(i)) {
-				pattern[i] = 'G';
-				usedSecret[i] = true;
+				//bug fix: check secret for dupes
+				for(int j =0; j < i;j++) {
+					if(wordleWord.charAt(j) == wordleWord.charAt(i)) {
+						dupe = true;
+					}
+				}
+				System.out.print(guess.charAt(i) + " | " + wordleWord.charAt(i) + " | " + dupe + "\n");
+				if(dupe) {
+					pattern[i] = 'G';
+					usedSecret[i] = true;
+				}
+				else {
+					pattern[i] = 'G';
+					usedSecret[i] = true;
+				}
+				
 			}
 		}
 
@@ -88,8 +104,7 @@ public class WordleGame {
 			boolean found = false;
 
 			for (int j = 0; j < 5; j++) {
-
-				if (g == wordleWord.charAt(j) && !usedSecret[j]) {
+				if (g == wordleWord.charAt(j) && !usedSecret[j] && !dupe) {
 					found = true;
 					usedSecret[j] = true;
 					break;
@@ -127,5 +142,13 @@ public class WordleGame {
 	 */
 	public int getAttempts() {
 		return attempts;
+	}
+	
+	/**
+	 * Debug purposes: Sets the secret word
+	 * @param the word set as the secret word
+	 */
+	public void setSecretWord(String newWord) {
+		wordleWord = newWord.toLowerCase();
 	}
 }

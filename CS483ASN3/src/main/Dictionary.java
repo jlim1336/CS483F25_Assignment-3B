@@ -1,5 +1,6 @@
 package main;
 import java.util.*;
+import java.util.Random;
 
 public class Dictionary {
 	private List<String> words;
@@ -16,6 +17,8 @@ public class Dictionary {
 		words.add("delta");
 		words.add("EAGLE");
 		words.add("flint");
+		
+		words.replaceAll(String::toLowerCase);
 	}
 
 	/**
@@ -26,10 +29,13 @@ public class Dictionary {
 		if (words.isEmpty()) {
 			return null;
 		} else {
-			return words.get(0); // picks random value in array list
+			Random random = new Random();
+			int randInt = random.nextInt(words.size());
+			return words.get(randInt).toLowerCase(); // picks random value in array list + bug fix
 		}
 	}
 
+	
 	/**
 	 * Checks for word validity
 	 * 

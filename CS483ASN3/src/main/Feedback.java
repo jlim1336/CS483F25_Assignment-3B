@@ -37,6 +37,6 @@ public class Feedback {
 	@Override
 	public String toString() {
 
-		return guess + pattern;
+		return guess + "\n" + pattern; //bug fix, added new line
 	}
 }
