@@ -21,7 +21,6 @@ public class Dictionary {
 	/**
 	 * Returns random 5 letter word
 	 * 
-	 * @bug not random, returns first always
 	 */
 	public String getRandomWord() {
 		if (words.isEmpty()) {
@@ -34,7 +33,6 @@ public class Dictionary {
 	/**
 	 * Checks for word validity
 	 * 
-	 * @bug case sensitive
 	 */
 	public boolean isValidWord(String guess) {
 		return words.contains(guess);

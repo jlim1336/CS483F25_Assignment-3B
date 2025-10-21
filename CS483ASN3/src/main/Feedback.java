@@ -28,7 +28,6 @@ public class Feedback {
 	 * @return true if the guess is identical to the secret
 	 */
 	public boolean isCorrect() {
-		// BUG 9: Case-sensitive comparison
 		return guess.equals(wordleWord);
 	}
 
